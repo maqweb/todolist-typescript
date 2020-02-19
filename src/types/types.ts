@@ -9,6 +9,7 @@ export interface ITask {
     id: string
     title: string
     todolistId: string
+    description: null
 }
 
 export interface ITodolist {

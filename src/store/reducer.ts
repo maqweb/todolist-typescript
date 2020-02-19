@@ -2,7 +2,7 @@ import {api} from "../api/api";
 import {ITask, ITodolist} from "../types/types";
 // import {ThunkAction} from "redux-thunk";
 // import {AppStateType} from "./store";
-import {Action, Dispatch} from "redux";
+import {Dispatch} from "redux";
 
 export const ADD_TODOLIST = 'ADD_TODOLIST';
 export const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
@@ -14,23 +14,7 @@ export const SET_TODOLIST = 'SET_TODOLIST';
 export const CHANGE_TODOLIST_TITLE = 'CHANGE_TODOLIST_TITLE';
 
 const initialState = {
-    todolists: [
-        {
-            addedDate: "", id: "", order: 0, title: "", tasks: [
-                {
-                    addedDate: "",
-                    completed: false,
-                    deadline: null,
-                    order: 0,
-                    priority: 0,
-                    startDate: null,
-                    status: 0,
-                    id: "",
-                    title: "",
-                    todolistId: ""
-                }]
-        }
-    ]
+    todolists: []
 };
 
 interface IInitialState {
@@ -226,92 +210,94 @@ export const changeTodolistTitleAC = (todolistId: string, newTitle: string): ICh
 };
 
 // ----------- TYPE FOR THUNK CREATORS -----------
-
-// type IGetTodolistsTC = (todolists: ITodolist) => ThunkAction<void, AppStateType, null, Action>
-// type IAddTodolistsTC = (newTodolist: string) => ThunkAction<void, AppStateType, null, Action>
-// type IChangeTodolistTitleTC = (todolistId: string, newTitle: string) => ThunkAction<void, AppStateType, null, Action>
-// type IGetTasksTC = (taskId: string) => ThunkAction<void, AppStateType, null, Action>
-// type IAddTasksTC = (todolistId: string, newTask: string) => ThunkAction<void, AppStateType, null, Action>
-// type IupdateTaskTC = (todolistId: string, taskId: string, updatedTask: ITask) => ThunkAction<void, AppStateType, null, Action>
-// type IRemoveTodolistTC = (todolistId: string) => ThunkAction<void, AppStateType, null, Action>
-// type IRemoveTaskTC = (todolistId: string, taskId: string) => ThunkAction<void, AppStateType, null, Action>
+/*
+type IGetTodolistsTC = (todolists: ITodolist) => ThunkAction<void, AppStateType, null, Action>
+type IAddTodolistsTC = (newTodolist: string) => ThunkAction<void, AppStateType, null, Action>
+type IChangeTodolistTitleTC = (todolistId: string, newTitle: string) => ThunkAction<void, AppStateType, null, Action>
+type IGetTasksTC = (taskId: string) => ThunkAction<void, AppStateType, null, Action>
+type IAddTasksTC = (todolistId: string, newTask: string) => ThunkAction<void, AppStateType, null, Action>
+type IupdateTaskTC = (todolistId: string, taskId: string, updatedTask: ITask) => ThunkAction<void, AppStateType, null, Action>
+type IRemoveTodolistTC = (todolistId: string) => ThunkAction<void, AppStateType, null, Action>
+type IRemoveTaskTC = (todolistId: string, taskId: string) => ThunkAction<void, AppStateType, null, Action>
+*/
 
 // ----------- THUNK CREATORS -----------
+/*
+export const getTodolistsTC: IGetTodolistsTC = () => {
+    return (dispatch) => {
+        api.getTodolists()
+            .then(res => {
+                dispatch(setTodolistAc(res.data))
+            })
+    }
+};
 
-// export const getTodolistsTC: IGetTodolistsTC = () => {
-//     return (dispatch) => {
-//         api.getTodolists()
-//             .then(res => {
-//                 dispatch(setTodolistAc(res.data))
-//             })
-//     }
-// };
-//
-// export const addTodolistTC: IAddTodolistsTC = (newTodolist: string) => {
-//     return (dispatch) => {
-//         api.addTodoList(newTodolist)
-//             .then(res => {
-//                 let newTodolist = res.data.data.item;
-//                 dispatch(addTodolistAC(newTodolist))
-//             })
-//     };
-// };
-//
-// export const changeTodolistTitleTC: IChangeTodolistTitleTC = (todolistId: string, newTitle: string) => {
-//     return (dispatch) => {
-//         api.changeTodolistTitle(todolistId, newTitle)
-//             .then(res => {
-//                 dispatch(changeTodolistTitleAC(todolistId, newTitle))
-//             })
-//     }
-// };
-//
-// export const getTasksTC: IGetTasksTC = (taskId: string) => {
-//     return (dispatch) => {
-//         api.getTasks(taskId)
-//             .then(res => {
-//                 let allTasks = res.data.items;
-//                 dispatch(setTaskAC(allTasks, taskId));
-//             })
-//     }
-// };
-//
-// export const addTaskTC: IAddTasksTC = (todolistId: string, newTask: string) => {
-//     return (dispatch) => {
-//         api.addItem(todolistId, newTask)
-//             .then(res => {
-//                 let newTitle = res.data.data.item;
-//                 dispatch(addTaskAC(todolistId, newTitle))
-//             });
-//     }
-// };
-//
-// export const updateTaskTC: IupdateTaskTC = (todolistId: string, taskId: string, updatedTask: ITask) => {
-//     return (dispatch) => {
-//         api.changeTask(todolistId, taskId, updatedTask)
-//             .then(res => {
-//                 dispatch(updateTaskAC(todolistId, taskId, updatedTask))
-//             })
-//     }
-// };
-//
-// export const removeTodolistTC: IRemoveTodolistTC = (todolistId: string) => {
-//     return (dispatch) => {
-//         api.removeTodolist(todolistId)
-//             .then(res => {
-//                 dispatch(removeTodolistAC(todolistId))
-//             })
-//     }
-// };
-//
-// export const removeTaskTC: IRemoveTaskTC = (todolistId: string, taskId: string) => {
-//     return (dispatch) => {
-//         api.removeTask(todolistId, taskId)
-//             .then(res => {
-//                 dispatch(removeTaskAC(todolistId, taskId))
-//             })
-//     }
-// };
+export const addTodolistTC: IAddTodolistsTC = (newTodolist: string) => {
+    return (dispatch) => {
+        api.addTodoList(newTodolist)
+            .then(res => {
+                let newTodolist = res.data.data.item;
+                dispatch(addTodolistAC(newTodolist))
+            })
+    };
+};
+
+export const changeTodolistTitleTC: IChangeTodolistTitleTC = (todolistId: string, newTitle: string) => {
+    return (dispatch) => {
+        api.changeTodolistTitle(todolistId, newTitle)
+            .then(res => {
+                dispatch(changeTodolistTitleAC(todolistId, newTitle))
+            })
+    }
+};
+
+export const getTasksTC: IGetTasksTC = (taskId: string) => {
+    return (dispatch) => {
+        api.getTasks(taskId)
+            .then(res => {
+                let allTasks = res.data.items;
+                dispatch(setTaskAC(allTasks, taskId));
+            })
+    }
+};
+
+export const addTaskTC: IAddTasksTC = (todolistId: string, newTask: string) => {
+    return (dispatch) => {
+        api.addItem(todolistId, newTask)
+            .then(res => {
+                let newTitle = res.data.data.item;
+                dispatch(addTaskAC(todolistId, newTitle))
+            });
+    }
+};
+
+export const updateTaskTC: IupdateTaskTC = (todolistId: string, taskId: string, updatedTask: ITask) => {
+    return (dispatch) => {
+        api.changeTask(todolistId, taskId, updatedTask)
+            .then(res => {
+                dispatch(updateTaskAC(todolistId, taskId, updatedTask))
+            })
+    }
+};
+
+export const removeTodolistTC: IRemoveTodolistTC = (todolistId: string) => {
+    return (dispatch) => {
+        api.removeTodolist(todolistId)
+            .then(res => {
+                dispatch(removeTodolistAC(todolistId))
+            })
+    }
+};
+
+export const removeTaskTC: IRemoveTaskTC = (todolistId: string, taskId: string) => {
+    return (dispatch) => {
+        api.removeTask(todolistId, taskId)
+            .then(res => {
+                dispatch(removeTaskAC(todolistId, taskId))
+            })
+    }
+};
+*/
 
 export const getTodolistsTC: Function = () => {
     return (dispatch: Dispatch) => {
@@ -341,12 +327,12 @@ export const changeTodolistTitleTC: Function = (todolistId: string, newTitle: st
     }
 };
 
-export const getTasksTC: Function = (taskId: string) => {
+export const getTasksTC: Function = (todolistId: string) => {
     return (dispatch: Dispatch) => {
-        api.getTasks(taskId)
+        api.getTasks(todolistId)
             .then(res => {
                 let allTasks = res.data.items;
-                dispatch(setTaskAC(allTasks, taskId));
+                dispatch(setTaskAC(allTasks, todolistId));
             })
     }
 };

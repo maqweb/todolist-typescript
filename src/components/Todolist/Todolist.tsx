@@ -74,32 +74,10 @@ class Todolist extends React.Component<IProps & IMapStateProps & IMapDispatchPro
 
     onChangeTask = (taskId: string, obj: IObjTask) => {
 
-        let task: any = this.props.tasks.find(t => (t.id === taskId)); // ANY REFACTOR !!!
+        let task = this.props.tasks.find(t => (t.id === taskId));
+        let updatedTask= {...task, ...obj};
 
-        let updatedTask = {
-            addedDate: task.addedDate,
-            completed: task.completed,
-            deadline: task.deadline,
-            order: task.order,
-            priority: task.priority,
-            startDate: task.startDate,
-            status: task.status,
-            id: task.id,
-            title: task.title,
-            todolistId: task.todolistId,
-
-            // title: task.title,
-            // description: task.description,
-            // completed: task.completed,
-            // status: task.status,
-            // priority: task.priority,
-            // startDate: task.startDate,
-            // deadline: task.deadline,
-
-            ...obj
-        };
-
-        this.props.changeTask(this.props.id, taskId, updatedTask)
+        this.props.changeTask(this.props.id, taskId, updatedTask as ITask)
     };
 
     onRemoveTodolist = () => {
